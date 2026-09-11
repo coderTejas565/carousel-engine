@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>02 · DNS Resolution</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- HEADER -->
+      <header class="top-bar">
+
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+
+      </header>
+
+
+      <!-- MAIN IDEA -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          STEP 01 · DNS RESOLUTION
+        </div>
+
+        <h1 class="block-title">
+          Before the connection,
+          <span class="accent">a name needs an address.</span>
+        </h1>
+
+        <p class="para">
+          Your browser has a hostname.
+          The network needs an IP address.
+          <strong>DNS bridges the two.</strong>
+        </p>
+
+      </section>
+
+
+      <!-- REQUEST -->
+      <section class="request-box">
+
+        <div class="box-label">
+          WHAT YOU HAVE
+        </div>
+
+        <div class="box-content mono">
+          api.tejas.systems
+        </div>
+
+      </section>
+
+
+      <!-- DNS FLOW -->
+      <section class="dns-flow">
+
+        <div class="flow-label">
+          DNS LOOKUP
+        </div>
+
+        <div class="steps">
+
+          <!-- CACHE -->
+          <div class="step">
+
+            <div class="step-num">
+              01
+            </div>
+
+            <div>
+              <div class="step-title">
+                Check the cache
+              </div>
+
+              <div class="step-desc">
+                Browser / OS / resolver checks whether the hostname
+                is already cached.
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- RESOLVER -->
+          <div class="step">
+
+            <div class="step-num">
+              02
+            </div>
+
+            <div>
+              <div class="step-title">
+                Ask the recursive resolver
+              </div>
+
+              <div class="step-desc">
+                If there is no cached answer, the resolver
+                finds the authoritative answer.
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- HIERARCHY -->
+          <div class="step">
+
+            <div class="step-num">
+              03
+            </div>
+
+            <div>
+              <div class="step-title">
+                Root → TLD → authoritative
+              </div>
+
+              <div class="step-desc">
+                The resolver may walk the DNS hierarchy
+                to discover where the domain's records live.
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- RECORD -->
+          <div class="step">
+
+            <div class="step-num">
+              04
+            </div>
+
+            <div>
+              <div class="step-title">
+                Receive the IP
+              </div>
+
+              <div class="step-desc">
+                An A record returns IPv4 or an AAAA record
+                returns IPv6.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RESULT -->
+      <section class="request-response">
+
+        <div class="request-box">
+
+          <div class="box-label">
+            HOSTNAME
+          </div>
+
+          <div class="box-content mono">
+            api.tejas.systems
+          </div>
+
+        </div>
+
+        <div class="decapsulation arrow">
+          →
+        </div>
+
+        <div class="response-box">
+
+          <div class="box-label">
+            RESOLVED ADDRESS
+          </div>
+
+          <div class="box-content mono accent">
+            203.0.113.42
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TAKEAWAY -->
+      <aside class="callout">
+
+        <div class="callout-label">
+          MENTAL MODEL
+        </div>
+
+        <div class="callout-text">
+          DNS doesn't move your request.
+          It helps the system discover
+          <strong>where to send it.</strong>
+        </div>
+
+      </aside>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          NAME → IP → CONNECTION
+        </div>
+
+        <div class="page-indicator">
+          02 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

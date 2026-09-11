@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>07 · Outro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- HEADER -->
+      <header class="top-bar">
+
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+
+      </header>
+
+
+      <!-- HEADLINE -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          STEP 06 · RESPONSE
+        </div>
+
+        <h1 class="block-title">
+          And then the
+          <span class="accent">response</span>
+          makes its way back.
+        </h1>
+
+        <div class="tech-sub">
+
+          <span class="mono">
+            REQUEST → SERVER → RESPONSE
+          </span>
+
+          <span class="thin-line"></span>
+
+          <span>
+            FULL LIFECYCLE
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- RESPONSE FLOW -->
+      <section class="network-flow">
+
+        <div class="network-node accent">
+
+          <div class="node-title">
+            APP
+          </div>
+
+          <div class="node-meta mono">
+            200 OK
+          </div>
+
+        </div>
+
+        <div class="network-arrow">
+          →
+        </div>
+
+        <div class="network-node">
+
+          <div class="node-title">
+            TLS
+          </div>
+
+          <div class="node-meta">
+            encrypted
+          </div>
+
+        </div>
+
+        <div class="network-arrow">
+          →
+        </div>
+
+        <div class="network-node">
+
+          <div class="node-title">
+            TCP
+          </div>
+
+          <div class="node-meta">
+            reliable bytes
+          </div>
+
+        </div>
+
+        <div class="network-arrow">
+          →
+        </div>
+
+        <div class="network-node">
+
+          <div class="node-title">
+            IP
+          </div>
+
+          <div class="node-meta">
+            destination
+          </div>
+
+        </div>
+
+        <div class="network-arrow">
+          →
+        </div>
+
+        <div class="network-node accent">
+
+          <div class="node-title">
+            CLIENT
+          </div>
+
+          <div class="node-meta">
+            response received
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RESPONSE -->
+      <section class="body-block">
+
+        <p class="para">
+          Your server produces an HTTP response.
+          That response is carried through the established
+          connection and eventually reaches the client,
+          where your application can read the JSON.
+        </p>
+
+
+        <div class="code-panel">
+
+          <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div>
+            <span class="key">HTTP/2</span>
+            <span class="num">200</span>
+            OK
+          </div>
+
+          <div>
+            <span class="key">content-type:</span>
+            <span class="str">application/json</span>
+          </div>
+
+          <div>&nbsp;</div>
+
+          <div>
+            <span class="cmt">{</span>
+          </div>
+
+          <div>
+            &nbsp;&nbsp;<span class="key">"id"</span>:
+            <span class="str">"u_8f2a"</span>,
+          </div>
+
+          <div>
+            &nbsp;&nbsp;<span class="key">"name"</span>:
+            <span class="str">"Tejas"</span>
+          </div>
+
+          <div>
+            <span class="cmt">}</span>
+          </div>
+
+        </div>
+
+
+        <!-- FINAL TAKEAWAY -->
+        <aside class="callout">
+
+          <div class="callout-label">
+            THE BIG PICTURE
+          </div>
+
+          <div class="callout-text">
+            A simple
+            <strong>GET /profile</strong>
+            can trigger an entire chain of systems —
+            from name resolution and secure transport
+            to routing, application logic, and data access.
+          </div>
+
+        </aside>
+
+      </section>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          DNS → TCP → TLS → NETWORK → SERVER → RESPONSE
+        </div>
+
+        <div class="page-indicator">
+          07 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

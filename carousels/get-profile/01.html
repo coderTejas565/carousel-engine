@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>01 · GET /profile — Request Lifecycle</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="../../base.css">
+
+  <!-- Carousel-specific styles -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- BRAND / CATEGORY -->
+      <header class="top-bar">
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+      </header>
+
+
+      <!-- MAIN IDEA -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          REQUEST LIFECYCLE · 01 / 07
+        </div>
+
+        <h1 class="headline">
+          Your
+          <span class="accent">GET /profile</span>
+          request
+          <br>
+          <span class="dim">doesn't travel alone.</span>
+        </h1>
+
+        <div class="tech-sub">
+          <span>
+            What actually happens after you hit an API endpoint?
+          </span>
+
+          <span class="thin-line"></span>
+
+          <span class="mono">
+            HTTP → TCP → IP → NETWORK
+          </span>
+        </div>
+
+      </section>
+
+
+      <!-- REQUEST -->
+      <section class="request-line">
+
+        <div class="request-label">
+          YOU SEND
+        </div>
+
+        <div class="request">
+          <span class="method">GET</span>
+          <span class="path">/profile</span>
+        </div>
+
+      </section>
+
+
+      <!-- NETWORK STORY -->
+      <section class="network-flow">
+
+        <!-- APPLICATION -->
+        <div class="network-node accent">
+          <div class="node-title">
+            HTTP
+          </div>
+
+          <div class="node-meta">
+            application data
+          </div>
+        </div>
+
+
+        <div class="network-arrow">
+          →
+        </div>
+
+
+        <!-- TRANSPORT -->
+        <div class="network-node">
+          <div class="node-title">
+            TCP
+          </div>
+
+          <div class="node-meta">
+            reliable delivery
+          </div>
+        </div>
+
+
+        <div class="network-arrow">
+          →
+        </div>
+
+
+        <!-- NETWORK -->
+        <div class="network-node">
+          <div class="node-title">
+            IP
+          </div>
+
+          <div class="node-meta">
+            source → destination
+          </div>
+        </div>
+
+
+        <div class="network-arrow">
+          →
+        </div>
+
+
+        <!-- LINK -->
+        <div class="network-node">
+          <div class="node-title">
+            Ethernet
+          </div>
+
+          <div class="node-meta">
+            local network
+          </div>
+        </div>
+
+
+        <div class="network-arrow">
+          →
+        </div>
+
+
+        <!-- NETWORK -->
+        <div class="network-node">
+          <div class="node-title">
+            Router
+          </div>
+
+          <div class="node-meta">
+            next hop
+          </div>
+        </div>
+
+
+        <div class="network-arrow">
+          →
+        </div>
+
+
+        <!-- SERVER -->
+        <div class="network-node accent">
+          <div class="node-title">
+            Server
+          </div>
+
+          <div class="node-meta">
+            request arrives
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ENCAPSULATION IDEA -->
+      <section class="encapsulation">
+
+        <div class="section-label">
+          THE IMPORTANT PART
+        </div>
+
+        <div class="encapsulation-title">
+          Your HTTP request gets
+          <span class="accent">wrapped in layers</span>
+          before it travels.
+        </div>
+
+        <div class="packet-stack">
+
+          <div class="packet-layer http">
+            <span class="layer-name">HTTP</span>
+            <span class="layer-content">
+              GET /profile
+            </span>
+          </div>
+
+          <div class="packet-layer">
+            <span class="layer-name">TCP</span>
+            <span class="layer-content">
+              segment + port
+            </span>
+          </div>
+
+          <div class="packet-layer">
+            <span class="layer-name">IP</span>
+            <span class="layer-content">
+              source + destination
+            </span>
+          </div>
+
+          <div class="packet-layer">
+            <span class="layer-name">LINK</span>
+            <span class="layer-content">
+              frame
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TAKEAWAY -->
+      <aside class="callout">
+
+        <div class="callout-label">
+          MENTAL MODEL
+        </div>
+
+        <div class="callout-text">
+          HTTP is only the beginning.
+          The network adds the machinery that actually moves your request.
+        </div>
+
+      </aside>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          FROM API CALL → NETWORK → SERVER
+        </div>
+
+        <div class="page-indicator">
+          01 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>05 · Network Routing</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- HEADER -->
+      <header class="top-bar">
+
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+
+      </header>
+
+
+      <!-- MAIN IDEA -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          STEP 04 · NETWORK
+        </div>
+
+        <h1 class="block-title">
+          Your packets don't take
+          <span class="accent">a single path.</span>
+        </h1>
+
+        <div class="tech-sub">
+
+          <span class="mono">
+            CLIENT → HOP → HOP → HOP → SERVER
+          </span>
+
+          <span class="thin-line"></span>
+
+          <span>
+            IP FORWARDING
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- EXPLANATION -->
+      <section class="body-block">
+
+        <p class="para">
+          Once the destination IP is known, IP packets are
+          forwarded <strong>hop by hop</strong> through networks
+          and routers toward the destination.
+        </p>
+
+
+        <!-- TRACEROUTE -->
+        <div class="code-panel">
+
+          <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div>
+            <span class="cmt">
+              $ traceroute api.tejas.systems
+            </span>
+          </div>
+
+          <div>&nbsp;</div>
+
+          <div>
+            <span class="num">1</span>
+            &nbsp;&nbsp;192.168.1.1
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="num">2.1 ms</span>
+          </div>
+
+          <div>
+            <span class="num">2</span>
+            &nbsp;&nbsp;10.0.0.1
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="num">8.4 ms</span>
+          </div>
+
+          <div>
+            <span class="num">3</span>
+            &nbsp;&nbsp;72.14.204.1
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="num">11.7 ms</span>
+          </div>
+
+          <div>
+            <span class="num">4</span>
+            &nbsp;&nbsp;142.250.46.1
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="num">14.2 ms</span>
+          </div>
+
+          <div>
+            <span class="cmt">
+              ...
+            </span>
+            &nbsp;&nbsp;
+            <span class="cmt">
+              more hops
+            </span>
+          </div>
+
+          <div>
+            <span class="num">13</span>
+            &nbsp;&nbsp;34.117.59.81
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="num">42.9 ms</span>
+          </div>
+
+        </div>
+
+
+        <!-- ROUTING CONCEPTS -->
+        <div class="routing-grid">
+
+          <div class="routing-item">
+
+            <div class="indicator"></div>
+
+            <div>
+              <div class="step-title">
+                Hop by hop
+              </div>
+
+              <div class="step-desc">
+                Each router looks at the destination IP
+                and forwards the packet to its next hop.
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="routing-item">
+
+            <div class="indicator"></div>
+
+            <div>
+              <div class="step-title">
+                Routing tables
+              </div>
+
+              <div class="step-desc">
+                Routers use routing information to decide
+                where packets should go next.
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="routing-item">
+
+            <div class="indicator"></div>
+
+            <div>
+              <div class="step-title">
+                Many networks
+              </div>
+
+              <div class="step-desc">
+                Internet traffic can cross multiple
+                autonomous systems before reaching the server.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- MENTAL MODEL -->
+      <aside class="callout">
+
+        <div class="callout-label">
+          MENTAL MODEL
+        </div>
+
+        <div class="callout-text">
+          You don't control the exact route.
+          <strong>The network forwards each packet toward its destination.</strong>
+        </div>
+
+      </aside>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          DNS → TCP → TLS → NETWORK → NEXT: HTTP
+        </div>
+
+        <div class="page-indicator">
+          05 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

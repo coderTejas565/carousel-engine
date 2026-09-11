@@ -1,0 +1,750 @@
+/* =========================================================
+   CAROUSEL ENGINE — BASE DESIGN SYSTEM
+   Shared across all carousels.
+   Carousel-specific styles belong in:
+   carousels/<name>/style.css
+   ========================================================= */
+
+
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
+:root {
+  /* ---------- Canvas ---------- */
+
+  --canvas-width: 1080px;
+  --canvas-height: 1350px;
+
+  --bg: #0b0b0f;
+  --surface: #0d0d13;
+  --surface-raised: #0f0f16;
+
+  /* ---------- Brand ---------- */
+
+  --blue: #097fe8;
+  --blue-soft: rgba(9, 127, 232, 0.08);
+  --blue-subtle: rgba(9, 127, 232, 0.05);
+  --blue-border: rgba(9, 127, 232, 0.25);
+
+  /* ---------- Text ---------- */
+
+  --text-primary: #ffffff;
+  --text-secondary: #b8b8bf;
+  --text-muted: #8e8e93;
+  --text-dim: #6b7280;
+  --text-faint: #4b4b55;
+
+  /* ---------- Borders ---------- */
+
+  --border: #1c1c24;
+  --border-strong: #2a2a32;
+
+  /* ---------- Spacing ---------- */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 60px;
+  --space-11: 70px;
+  --space-12: 80px;
+
+  /* ---------- Radius ---------- */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* ---------- Typography ---------- */
+
+  --font-sans:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  --font-mono:
+    "JetBrains Mono",
+    "SF Mono",
+    Menlo,
+    Consolas,
+    monospace;
+
+  /* ---------- Effects ---------- */
+
+  --shadow-sm:
+    0 2px 6px rgba(0, 0, 0, 0.5);
+
+  --shadow-blue:
+    0 0 0 1px rgba(9, 127, 232, 0.2);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+
+  font-family: var(--font-sans);
+
+  color: var(--text-primary);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  text-rendering: optimizeLegibility;
+}
+
+
+/* =========================================================
+   CAROUSEL CANVAS
+   ========================================================= */
+
+.carousel-cover {
+  position: relative;
+
+  width: var(--canvas-width);
+  height: var(--canvas-height);
+
+  flex-shrink: 0;
+
+  background: var(--bg);
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px
+    );
+
+  background-size: 32px 32px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.cover-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  padding: var(--space-11) var(--space-12);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.top-bar {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.brand {
+  color: var(--text-primary);
+
+  font-size: 24px;
+  font-weight: 600;
+
+  letter-spacing: -0.01em;
+
+  text-transform: uppercase;
+
+  opacity: 0.9;
+}
+
+.category-label {
+  color: var(--text-dim);
+
+  font-size: 16px;
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  padding: 6px 14px;
+
+  border: 1px solid rgba(107, 114, 128, 0.25);
+
+  border-radius: var(--radius-pill);
+
+  background: rgba(255, 255, 255, 0.02);
+}
+
+
+/* =========================================================
+   HEADLINE
+   ========================================================= */
+
+.headline-block {
+  margin-top: var(--space-8);
+}
+
+.headline {
+  max-width: 920px;
+
+  color: var(--text-primary);
+
+  font-size: 76px;
+  line-height: 1.04;
+
+  font-weight: 700;
+
+  letter-spacing: -0.04em;
+
+  text-wrap: balance;
+}
+
+.headline .accent {
+  color: var(--blue);
+}
+
+.headline .dim {
+  color: var(--text-dim);
+}
+
+
+/* =========================================================
+   TECHNICAL SUBHEAD
+   ========================================================= */
+
+.tech-sub {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  margin-top: var(--space-6);
+
+  color: var(--text-muted);
+
+  font-size: 18px;
+  font-weight: 400;
+
+  letter-spacing: 0.02em;
+}
+
+.tech-sub .thin-line {
+  flex: 1;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 127, 232, 0.3),
+      rgba(9, 127, 232, 0)
+    );
+}
+
+
+/* =========================================================
+   GENERIC DIAGRAM
+   ========================================================= */
+
+.diagram {
+  width: 100%;
+
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-8);
+}
+
+.layer-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 6px;
+}
+
+.layer-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.node-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 8px 0;
+
+  color: #e0e0e0;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+
+  text-transform: uppercase;
+
+  background: var(--surface-raised);
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: var(--radius-md);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.node-badge.accent {
+  color: var(--blue);
+
+  background: var(--blue-subtle);
+
+  border-color: var(--blue);
+
+  box-shadow: var(--shadow-blue);
+}
+
+.node-sub {
+  margin-top: 6px;
+
+  color: var(--text-faint);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.layer-arrow {
+  flex: 0 0 24px;
+
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: -12px;
+}
+
+.layer-arrow svg {
+  display: block;
+
+  width: 24px;
+  height: 10px;
+}
+
+
+/* =========================================================
+   INNER SLIDE CONTENT
+   ========================================================= */
+
+.body-block {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  gap: 28px;
+
+  margin-top: var(--space-10);
+}
+
+.kicker {
+  color: var(--blue);
+
+  font-size: 15px;
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.block-title {
+  max-width: 900px;
+
+  color: var(--text-primary);
+
+  font-size: 56px;
+  line-height: 1.1;
+
+  font-weight: 700;
+
+  letter-spacing: -0.025em;
+
+  text-wrap: balance;
+}
+
+.block-title .accent {
+  color: var(--blue);
+}
+
+.block-title .dim {
+  color: var(--text-dim);
+}
+
+.para {
+  max-width: 880px;
+
+  color: var(--text-secondary);
+
+  font-size: 22px;
+  line-height: 1.55;
+
+  font-weight: 400;
+
+  letter-spacing: -0.005em;
+}
+
+.para strong {
+  color: var(--text-primary);
+
+  font-weight: 600;
+}
+
+.para code {
+  font-family: var(--font-mono);
+
+  font-size: 0.92em;
+
+  color: var(--blue);
+
+  background: var(--blue-soft);
+
+  padding: 2px 8px;
+
+  border-radius: var(--radius-sm);
+}
+
+
+/* =========================================================
+   STEP CARDS
+   ========================================================= */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  margin-top: 8px;
+}
+
+.step {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: var(--space-5);
+
+  padding: var(--space-5) 22px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+}
+
+.step-num {
+  min-width: 32px;
+
+  padding-top: 4px;
+
+  color: var(--blue);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.06em;
+
+  font-feature-settings: "tnum";
+}
+
+.step-title {
+  margin-bottom: 6px;
+
+  color: var(--text-primary);
+
+  font-size: 22px;
+
+  font-weight: 600;
+
+  letter-spacing: -0.01em;
+}
+
+.step-desc {
+  color: var(--text-muted);
+
+  font-size: 17px;
+  line-height: 1.5;
+
+  font-weight: 400;
+}
+
+.step-desc code {
+  font-family: var(--font-mono);
+
+  font-size: 0.92em;
+
+  color: var(--blue);
+}
+
+
+/* =========================================================
+   CODE / TERMINAL
+   ========================================================= */
+
+.code-panel {
+  position: relative;
+
+  padding: var(--space-6) 26px;
+
+  overflow: hidden;
+
+  color: #d4d4d8;
+
+  font-family: var(--font-mono);
+
+  font-size: 17px;
+  line-height: 1.7;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+}
+
+.code-panel .dots {
+  display: flex;
+
+  gap: 6px;
+
+  margin-bottom: var(--space-4);
+}
+
+.code-panel .dots span {
+  width: 10px;
+  height: 10px;
+
+  flex-shrink: 0;
+
+  background: var(--border-strong);
+
+  border-radius: 50%;
+}
+
+.code-panel .cmt {
+  color: #5a5a63;
+}
+
+.code-panel .key {
+  color: var(--blue);
+}
+
+.code-panel .str {
+  color: #7ec699;
+}
+
+.code-panel .num {
+  color: #d19a66;
+}
+
+
+/* =========================================================
+   CALLOUT
+   ========================================================= */
+
+.callout {
+  margin-top: auto;
+
+  padding: 22px 26px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 127, 232, 0.06),
+      rgba(9, 127, 232, 0)
+    );
+
+  border-left: 2px solid var(--blue);
+
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.callout-label {
+  margin-bottom: var(--space-2);
+
+  color: var(--blue);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.callout-text {
+  color: #e0e0e0;
+
+  font-size: 20px;
+  line-height: 1.5;
+
+  font-weight: 500;
+
+  letter-spacing: -0.005em;
+}
+
+
+/* =========================================================
+   BOTTOM BAR
+   ========================================================= */
+
+.bottom-bar {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: auto;
+}
+
+.page-indicator {
+  padding: 6px 18px;
+
+  color: var(--text-dim);
+
+  font-size: 18px;
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  font-feature-settings: "tnum";
+
+  background: rgba(255, 255, 255, 0.01);
+
+  border: 1px solid rgba(107, 114, 128, 0.25);
+
+  border-radius: var(--radius-pill);
+}
+
+.footer-note {
+  color: var(--text-faint);
+
+  font-size: 15px;
+  font-weight: 500;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   UTILITY CLASSES
+   ========================================================= */
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.accent {
+  color: var(--blue);
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.faint {
+  color: var(--text-faint);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}

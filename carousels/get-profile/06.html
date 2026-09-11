@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>06 · Server</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- HEADER -->
+      <header class="top-bar">
+
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+
+      </header>
+
+
+      <!-- MAIN IDEA -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          STEP 05 · APPLICATION
+        </div>
+
+        <h1 class="block-title">
+          The request finally reaches
+          <span class="accent">your application.</span>
+        </h1>
+
+        <div class="tech-sub">
+
+          <span class="mono">
+            GET /profile
+          </span>
+
+          <span class="thin-line"></span>
+
+          <span>
+            SERVER-SIDE PROCESSING
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ARRIVAL -->
+      <section class="request-response">
+
+        <div class="request-box">
+
+          <div class="box-label">
+            ARRIVES AT
+          </div>
+
+          <div class="box-content mono">
+            :443
+          </div>
+
+        </div>
+
+        <div class="decapsulation arrow">
+          →
+        </div>
+
+        <div class="response-box">
+
+          <div class="box-label">
+            HTTP REQUEST
+          </div>
+
+          <div class="box-content mono accent">
+            GET /profile
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SERVER PIPELINE -->
+      <section class="server-boundary">
+
+        <div class="server-label">
+          TYPICAL REQUEST PATH
+        </div>
+
+        <div class="server-flow">
+
+          <!-- PROXY -->
+          <div class="server-step">
+
+            <div class="step-num">
+              01
+            </div>
+
+            <div class="server-step-content">
+
+              <div class="step-title">
+                Reverse proxy / Load balancer
+              </div>
+
+              <div class="step-desc">
+                May terminate TLS and route the request
+                to the appropriate backend service.
+              </div>
+
+              <div class="server-tech mono">
+                nginx · Envoy · ALB
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- APPLICATION -->
+          <div class="server-step">
+
+            <div class="step-num">
+              02
+            </div>
+
+            <div class="server-step-content">
+
+              <div class="step-title">
+                Application server
+              </div>
+
+              <div class="step-desc">
+                Your Node, Go, Python, or other backend
+                process matches the method and path to a handler.
+              </div>
+
+              <div class="server-tech mono">
+                GET /profile → handler
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- BUSINESS LOGIC -->
+          <div class="server-step">
+
+            <div class="step-num">
+              03
+            </div>
+
+            <div class="server-step-content">
+
+              <div class="step-title">
+                Middleware + business logic
+              </div>
+
+              <div class="step-desc">
+                Authentication, authorization, validation,
+                and application logic run here.
+              </div>
+
+              <div class="server-tech mono">
+                auth → validate → service
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- DATABASE -->
+          <div class="server-step">
+
+            <div class="step-num">
+              04
+            </div>
+
+            <div class="server-step-content">
+
+              <div class="step-title">
+                Data layer
+              </div>
+
+              <div class="step-desc">
+                The application may query a database,
+                cache, or another internal service.
+              </div>
+
+              <div class="server-tech mono">
+                service → repository → DB
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- IMPORTANT -->
+      <aside class="callout">
+
+        <div class="callout-label">
+          THE PART YOU WRITE
+        </div>
+
+        <div class="callout-text">
+          After all that networking machinery,
+          <strong>your backend code finally gets the request.</strong>
+        </div>
+
+      </aside>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          DNS → TCP → TLS → NETWORK → SERVER
+        </div>
+
+        <div class="page-indicator">
+          06 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

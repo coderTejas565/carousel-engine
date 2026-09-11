@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>03 · TCP Connection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <main class="carousel-cover get-profile-cover">
+
+    <div class="grid-overlay"></div>
+
+    <div class="cover-content">
+
+      <!-- HEADER -->
+      <header class="top-bar">
+
+        <div class="brand">
+          TEJAS SYSTEMS
+        </div>
+
+        <div class="category-label">
+          BACKEND / NETWORKING
+        </div>
+
+      </header>
+
+
+      <!-- MAIN IDEA -->
+      <section class="headline-block">
+
+        <div class="kicker">
+          STEP 02 · TRANSPORT
+        </div>
+
+        <h1 class="block-title">
+          Before HTTP travels,
+          <span class="accent">TCP establishes the connection.</span>
+        </h1>
+
+        <div class="tech-sub">
+
+          <span class="mono">
+            SYN → SYN-ACK → ACK
+          </span>
+
+          <span class="thin-line"></span>
+
+          <span>
+            3-WAY HANDSHAKE
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONNECTION FLOW -->
+      <section class="tcp-flow">
+
+        <div class="flow-label">
+          CONNECTION SETUP
+        </div>
+
+        <div class="tcp-endpoints">
+
+          <!-- CLIENT -->
+          <div class="tcp-endpoint">
+
+            <div class="endpoint-label">
+              CLIENT
+            </div>
+
+            <div class="endpoint-value mono">
+              :49152
+            </div>
+
+          </div>
+
+
+          <!-- HANDSHAKE -->
+          <div class="handshake">
+
+            <div class="handshake-step">
+
+              <div class="handshake-line client">
+                <span class="mono">SYN</span>
+                <span class="muted">
+                  seq = 100
+                </span>
+              </div>
+
+              <div class="handshake-step-number">
+                01
+              </div>
+
+            </div>
+
+
+            <div class="handshake-step">
+
+              <div class="handshake-line server">
+                <span class="mono">SYN-ACK</span>
+                <span class="muted">
+                  seq = 500 · ack = 101
+                </span>
+              </div>
+
+              <div class="handshake-step-number">
+                02
+              </div>
+
+            </div>
+
+
+            <div class="handshake-step">
+
+              <div class="handshake-line client">
+                <span class="mono">ACK</span>
+                <span class="muted">
+                  ack = 501
+                </span>
+              </div>
+
+              <div class="handshake-step-number">
+                03
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- SERVER -->
+          <div class="tcp-endpoint">
+
+            <div class="endpoint-label">
+              SERVER
+            </div>
+
+            <div class="endpoint-value mono">
+              :443
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- WHAT TCP GIVES HTTP -->
+      <section class="body-block">
+
+        <div class="section-label">
+          WHAT TCP PROVIDES
+        </div>
+
+        <div class="tcp-guarantees">
+
+          <div class="guarantee">
+
+            <div class="guarantee-number">
+              01
+            </div>
+
+            <div>
+              <div class="step-title">
+                Ordered bytes
+              </div>
+
+              <div class="step-desc">
+                Data is delivered to the application
+                in the correct sequence.
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="guarantee">
+
+            <div class="guarantee-number">
+              02
+            </div>
+
+            <div>
+              <div class="step-title">
+                Retransmission
+              </div>
+
+              <div class="step-desc">
+                Lost data can be detected and
+                retransmitted.
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="guarantee">
+
+            <div class="guarantee-number">
+              03
+            </div>
+
+            <div>
+              <div class="step-title">
+                Flow + congestion control
+              </div>
+
+              <div class="step-desc">
+                TCP regulates how much data is sent
+                based on receiver and network conditions.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- MENTAL MODEL -->
+      <aside class="callout">
+
+        <div class="callout-label">
+          MENTAL MODEL
+        </div>
+
+        <div class="callout-text">
+          The network can lose, delay, or reorder packets.
+          <strong>TCP hides much of that complexity from HTTP.</strong>
+        </div>
+
+      </aside>
+
+
+      <!-- FOOTER -->
+      <footer class="bottom-bar">
+
+        <div class="footer-note">
+          DNS → TCP → NEXT: TLS
+        </div>
+
+        <div class="page-indicator">
+          03 / 07
+        </div>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

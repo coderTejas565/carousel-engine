@@ -1,0 +1,521 @@
+/* =========================================================
+   GET /PROFILE — CAROUSEL STYLES
+   Networking request lifecycle visual system.
+   Shared primitives live in ../../base.css
+   ========================================================= */
+
+
+/* =========================================================
+   COVER / HERO
+   ========================================================= */
+
+.get-profile-cover .cover-content {
+  padding-top: 72px;
+}
+
+.get-profile-cover .headline-block {
+  margin-top: 42px;
+}
+
+.get-profile-cover .headline {
+  max-width: 940px;
+}
+
+
+/* =========================================================
+   REQUEST LINE
+   ========================================================= */
+
+.request-line {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 30px;
+
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+.request-line .method {
+  color: var(--blue);
+
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+}
+
+.request-line .path {
+  color: var(--text-primary);
+
+  font-weight: 500;
+}
+
+.request-line .separator {
+  color: var(--text-faint);
+}
+
+
+/* =========================================================
+   NETWORK FLOW
+   ========================================================= */
+
+.network-flow {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  margin-top: 56px;
+
+  gap: 10px;
+}
+
+.network-node {
+  position: relative;
+
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 88px;
+
+  padding: 18px 12px;
+
+  background: var(--surface-raised);
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.network-node .node-title {
+  color: var(--text-primary);
+
+  font-size: 17px;
+  font-weight: 600;
+
+  letter-spacing: -0.01em;
+
+  text-align: center;
+}
+
+.network-node .node-meta {
+  margin-top: 6px;
+
+  color: var(--text-faint);
+
+  font-family: var(--font-mono);
+
+  font-size: 11px;
+  font-weight: 400;
+
+  letter-spacing: 0.01em;
+
+  text-align: center;
+}
+
+.network-node.accent {
+  background: var(--blue-subtle);
+
+  border-color: var(--blue);
+
+  box-shadow: var(--shadow-blue);
+}
+
+.network-node.accent .node-title {
+  color: var(--blue);
+}
+
+
+/* =========================================================
+   NETWORK ARROW
+   ========================================================= */
+
+.network-arrow {
+  flex: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-arrow::after {
+  content: "→";
+
+  color: var(--text-faint);
+
+  font-size: 22px;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   PROTOCOL LAYERS
+   ========================================================= */
+
+.protocol-stack {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin-top: 48px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  overflow: hidden;
+
+  background: var(--surface);
+}
+
+.protocol-row {
+  display: grid;
+
+  grid-template-columns: 150px 1fr 170px;
+
+  align-items: center;
+
+  min-height: 70px;
+
+  padding: 0 24px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.protocol-row:last-child {
+  border-bottom: none;
+}
+
+.protocol-name {
+  color: var(--blue);
+
+  font-family: var(--font-mono);
+
+  font-size: 15px;
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+}
+
+.protocol-description {
+  color: var(--text-secondary);
+
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.protocol-unit {
+  color: var(--text-faint);
+
+  font-family: var(--font-mono);
+
+  font-size: 13px;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   PACKET / ENCAPSULATION VISUAL
+   ========================================================= */
+
+.packet-stack {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  width: 100%;
+
+  margin-top: 42px;
+}
+
+.packet-layer {
+  display: flex;
+  align-items: center;
+
+  min-height: 56px;
+
+  padding: 0 20px;
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface-raised);
+}
+
+.packet-layer .layer-name {
+  min-width: 130px;
+
+  color: var(--blue);
+
+  font-family: var(--font-mono);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.packet-layer .layer-content {
+  color: var(--text-secondary);
+
+  font-family: var(--font-mono);
+
+  font-size: 14px;
+}
+
+.packet-layer.http {
+  border-color: rgba(9, 127, 232, 0.35);
+
+  background: var(--blue-subtle);
+}
+
+
+/* =========================================================
+   REQUEST / RESPONSE COLUMNS
+   ========================================================= */
+
+.request-response {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+  width: 100%;
+
+  margin-top: 36px;
+}
+
+.request-box,
+.response-box {
+  padding: 22px 24px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+}
+
+.request-box .box-label,
+.response-box .box-label {
+  margin-bottom: 14px;
+
+  color: var(--text-faint);
+
+  font-family: var(--font-mono);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.request-box .box-label {
+  color: var(--blue);
+}
+
+.response-box .box-label {
+  color: #7ec699;
+}
+
+.box-content {
+  color: var(--text-secondary);
+
+  font-family: var(--font-mono);
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SERVER BOUNDARY
+   ========================================================= */
+
+.server-boundary {
+  position: relative;
+
+  width: 100%;
+
+  padding: 34px 30px;
+
+  margin-top: 44px;
+
+  border: 1px dashed var(--border-strong);
+
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.015),
+      rgba(255, 255, 255, 0)
+    );
+}
+
+.server-label {
+  position: absolute;
+
+  top: -10px;
+  left: 22px;
+
+  padding: 0 10px;
+
+  background: var(--bg);
+
+  color: var(--text-faint);
+
+  font-family: var(--font-mono);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.server-flow {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.server-step {
+  flex: 1;
+
+  padding: 18px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  text-align: center;
+}
+
+.server-step-title {
+  color: var(--text-primary);
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.server-step-meta {
+  margin-top: 6px;
+
+  color: var(--text-faint);
+
+  font-family: var(--font-mono);
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   DECAPSULATION
+   ========================================================= */
+
+.decapsulation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 36px;
+
+  color: var(--text-muted);
+
+  font-family: var(--font-mono);
+
+  font-size: 14px;
+}
+
+.decapsulation .arrow {
+  color: var(--blue);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   HIGHLIGHTED CONCEPT
+   ========================================================= */
+
+.concept-highlight {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 16px;
+
+  padding: 20px 22px;
+
+  background: var(--blue-subtle);
+
+  border: 1px solid rgba(9, 127, 232, 0.2);
+
+  border-radius: var(--radius-lg);
+}
+
+.concept-highlight .indicator {
+  width: 4px;
+  min-height: 42px;
+
+  flex-shrink: 0;
+
+  background: var(--blue);
+
+  border-radius: 4px;
+}
+
+.concept-highlight .content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.concept-highlight .title {
+  color: var(--text-primary);
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.concept-highlight .description {
+  color: var(--text-muted);
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE / DEBUG SAFETY
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .carousel-cover {
+    transform-origin: top center;
+  }
+}
