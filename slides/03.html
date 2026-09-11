@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>03 · TCP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+<div class="carousel-cover">
+  <div class="grid-overlay"></div>
+  <div class="cover-content">
+    <div class="top-bar">
+      <div class="brand">TEJAS SYSTEMS</div>
+      <div class="category-label">BACKEND / NETWORKING</div>
+    </div>
+
+    <div class="headline-block">
+      <div class="kicker">STEP 02 · TRANSPORT</div>
+      <h1 class="block-title" style="margin-top:20px;">
+        A <span class="accent">3-way handshake</span> opens the channel.
+      </h1>
+      <div class="tech-sub">
+        <span>SYN · SYN-ACK · ACK</span>
+        <span class="thin-line"></span>
+        <span>~1 RTT</span>
+      </div>
+    </div>
+
+    <div class="body-block">
+      <p class="para">
+        TCP doesn't trust the network. Before any HTTP byte is sent, client and server agree on
+        sequence numbers and window sizes via a three-way handshake.
+      </p>
+
+      <div class="code-panel">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div><span class="cmt">// client → server</span></div>
+        <div><span class="key">SYN</span> seq=<span class="num">0</span></div>
+        <div>&nbsp;</div>
+        <div><span class="cmt">// server → client</span></div>
+        <div><span class="key">SYN-ACK</span> seq=<span class="num">0</span> ack=<span class="num">1</span></div>
+        <div>&nbsp;</div>
+        <div><span class="cmt">// client → server</span></div>
+        <div><span class="key">ACK</span> ack=<span class="num">1</span></div>
+      </div>
+
+      <p class="para" style="font-size:20px;">
+        Now both sides have a <strong>reliable, ordered stream</strong>. If a packet drops, TCP retransmits.
+        If it arrives out of order, TCP reorders it. HTTP never sees any of this.
+      </p>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="footer-note">REQUEST LIFECYCLE</div>
+      <div class="page-indicator">03 / 07</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

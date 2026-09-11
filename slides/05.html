@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>05 · Routing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+<div class="carousel-cover">
+  <div class="grid-overlay"></div>
+  <div class="cover-content">
+    <div class="top-bar">
+      <div class="brand">TEJAS SYSTEMS</div>
+      <div class="category-label">BACKEND / NETWORKING</div>
+    </div>
+
+    <div class="headline-block">
+      <div class="kicker">STEP 04 · NETWORK</div>
+      <h1 class="block-title" style="margin-top:20px;">
+        Packets hop through <span class="accent">12+ routers</span> you'll never see.
+      </h1>
+    </div>
+
+    <div class="body-block">
+      <p class="para">
+        Your request doesn't take a single wire. It's broken into packets, each independently routed by BGP-speaking
+        routers between autonomous systems.
+      </p>
+
+      <div class="code-panel">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div><span class="cmt">$ traceroute api.tejas.systems</span></div>
+        <div>&nbsp;</div>
+        <div><span class="num"> 1</span>&nbsp;&nbsp;192.168.1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num">2.1 ms</span></div>
+        <div><span class="num"> 2</span>&nbsp;&nbsp;10.0.0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num">8.4 ms</span></div>
+        <div><span class="num"> 3</span>&nbsp;&nbsp;72.14.204.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="num">11.7 ms</span></div>
+        <div><span class="num"> 4</span>&nbsp;&nbsp;142.250.46.1&nbsp;&nbsp;&nbsp;&nbsp;<span class="num">14.2 ms</span></div>
+        <div><span class="num">…</span>&nbsp;&nbsp;<span class="cmt">(9 more hops)</span></div>
+        <div><span class="num">13</span>&nbsp;&nbsp;34.117.59.81&nbsp;&nbsp;&nbsp;&nbsp;<span class="num">42.9 ms</span>&nbsp;&nbsp;<span class="cmt">← origin edge</span></div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="footer-note">REQUEST LIFECYCLE</div>
+      <div class="page-indicator">05 / 07</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
