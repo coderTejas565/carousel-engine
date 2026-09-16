@@ -2,34 +2,54 @@ import type { FlowSlide } from "./flow-slide.js";
 
 export const sampleFlowSlide: FlowSlide = {
   template: "flow",
-  title: "GET /profile Request & Query Pipeline",
+  title: "Cache Aside Request Flow",
   nodes: [
     {
-      id: "browser",
-      label: "Browser",
+      id: "client",
+      label: "Client",
       type: "client",
     },
     {
-      id: "express",
-      label: "Express Server",
+      id: "api",
+      label: "API Server",
       type: "server",
     },
     {
-      id: "postgres",
+      id: "redis",
+      label: "Redis",
+      type: "server",
+    },
+    {
+      id: "service",
+      label: "User Service",
+      type: "server",
+    },
+    {
+      id: "database",
       label: "PostgreSQL",
       type: "database",
     },
   ],
   edges: [
     {
-      from: "browser",
-      to: "express",
-      label: "GET /profile",
+      from: "client",
+      to: "api",
+      label: "GET /user",
     },
     {
-      from: "express",
-      to: "postgres",
-      label: "Query user",
+      from: "api",
+      to: "redis",
+      label: "Check Cache",
+    },
+    {
+      from: "api",
+      to: "service",
+      label: "Cache Miss",
+    },
+    {
+      from: "service",
+      to: "database",
+      label: "SQL Query",
     },
   ],
 };

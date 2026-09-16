@@ -1,3 +1,4 @@
+import dagre from "@dagrejs/dagre";
 import { FlowSlideSchema, type FlowSlide } from "./flow-slide.js";
 
 export interface NodeLayout {
@@ -25,33 +26,104 @@ export interface FlowLayoutResult {
   edges: EdgeLayout[];
   stageWidth: number;
   stageHeight: number;
+  graphWidth: number;
+  graphHeight: number;
+  scale: number;
+  offsetX: number;
+  offsetY: number;
 }
 
 /**
- * Deterministically computes node and edge positions using a simple left-to-right layout.
- * Does not pollute the domain model with visual coordinates.
+ * Deterministically computes node and edge positions using a Dagre graph layout.
+ * Automatically fits and scales the graph bounding box inside fixed stage bounds.
  */
 export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
-  const stageWidth = 920;
-  const stageHeight = 460;
   const nodeWidth = 220;
   const nodeHeight = 110;
 
-  const count = slide.nodes.length;
-  const totalNodesWidth = count * nodeWidth;
-  const gap = count > 1 ? (stageWidth - totalNodesWidth) / (count - 1) : 0;
-  const centerY = stageHeight / 2;
-  const topY = centerY - nodeHeight / 2;
+  const g = new dagre.graphlib.Graph();
+  g.setGraph({
+    rankdir: "LR",
+    nodesep: 60,
+    ranksep: 110,
+    marginx: 0,
+    marginy: 0,
+  });
+  g.setDefaultEdgeLabel(() => ({}));
+
+  for (const node of slide.nodes) {
+    g.setNode(node.id, {
+      width: nodeWidth,
+      height: nodeHeight,
+      label: node.label,
+      type: node.type,
+    });
+  }
+
+  for (const edge of slide.edges) {
+    g.setEdge(edge.from, edge.to);
+  }
+
+  dagre.layout(g);
+
+  // 1. Calculate actual Dagre bounding box across all nodes
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  for (const node of slide.nodes) {
+    const dagreNode = g.node(node.id);
+    const left = dagreNode.x - dagreNode.width / 2;
+    const right = dagreNode.x + dagreNode.width / 2;
+    const top = dagreNode.y - dagreNode.height / 2;
+    const bottom = dagreNode.y + dagreNode.height / 2;
+    if (left < minX) minX = left;
+    if (right > maxX) maxX = right;
+    if (top < minY) minY = top;
+    if (bottom > maxY) maxY = bottom;
+  }
+
+  const graphInfo = g.graph();
+  const graphWidth = Math.round(slide.nodes.length > 0 ? (graphInfo.width ?? (maxX - minX)) : 0);
+  const graphHeight = Math.round(slide.nodes.length > 0 ? (graphInfo.height ?? (maxY - minY)) : 0);
+
+  // 2. Stage boundaries (fixed to canvas width 1080 - 2 * 80px padding)
+  const stageWidth = 920;
+  const minStageHeight = 460;
+  const maxStageHeight = 620;
+  const stageHeight = Math.min(maxStageHeight, Math.max(minStageHeight, Math.round(graphHeight + 80)));
+
+  // 3. Keep reasonable padding from stage edges
+  const paddingX = 36;
+  const paddingY = 36;
+  const availableWidth = stageWidth - 2 * paddingX;
+  const availableHeight = stageHeight - 2 * paddingY;
+
+  // 4. Deterministic scale factor to fit graph within stage bounds
+  const scaleX = graphWidth > 0 ? availableWidth / graphWidth : 1;
+  const scaleY = graphHeight > 0 ? availableHeight / graphHeight : 1;
+  const scale = graphWidth > 0 && graphHeight > 0
+    ? Math.min(1, scaleX, scaleY)
+    : 1;
+
+  // 5. Centering offsets
+  const scaledWidth = graphWidth * scale;
+  const scaledHeight = graphHeight * scale;
+  const offsetX = Math.round((stageWidth - scaledWidth) / 2);
+  const offsetY = Math.round((stageHeight - scaledHeight) / 2);
 
   const nodeMap = new Map<string, NodeLayout>();
-  const nodes: NodeLayout[] = slide.nodes.map((node, index) => {
-    const x = Math.round(index * (nodeWidth + gap));
+  const nodes: NodeLayout[] = slide.nodes.map((node) => {
+    const dagreNode = g.node(node.id);
+    const x = Math.round(dagreNode.x - dagreNode.width / 2);
+    const y = Math.round(dagreNode.y - dagreNode.height / 2);
     const layout: NodeLayout = {
       id: node.id,
       label: node.label,
       type: node.type,
       x,
-      y: topY,
+      y,
       width: nodeWidth,
       height: nodeHeight,
     };
@@ -83,7 +155,17 @@ export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
     };
   });
 
-  return { nodes, edges, stageWidth, stageHeight };
+  return {
+    nodes,
+    edges,
+    stageWidth,
+    stageHeight,
+    graphWidth,
+    graphHeight,
+    scale,
+    offsetX,
+    offsetY,
+  };
 }
 
 function escapeHtml(text: string): string {
@@ -107,12 +189,16 @@ export function renderFlowSlideToHtml(input: unknown): string {
   // SVG edges
   const edgeSvgElements = layout.edges
     .map((edge) => {
-      // Offset slightly for marker arrowhead
+      // Offset slightly for marker arrowhead along the edge angle
+      const dx = edge.x2 - edge.x1;
+      const dy = edge.y2 - edge.y1;
+      const angle = Math.atan2(dy, dx);
       const targetOffset = 8;
-      const targetX = edge.x2 > edge.x1 ? edge.x2 - targetOffset : edge.x2 + targetOffset;
+      const targetX = edge.x2 - Math.cos(angle) * targetOffset;
+      const targetY = edge.y2 - Math.sin(angle) * targetOffset;
 
       const midX = (edge.x1 + targetX) / 2;
-      const midY = (edge.y1 + edge.y2) / 2;
+      const midY = (edge.y1 + targetY) / 2;
 
       const labelElement = edge.label
         ? `
@@ -124,7 +210,7 @@ export function renderFlowSlideToHtml(input: unknown): string {
 
       return `
       <g class="flow-edge">
-        <line x1="${edge.x1}" y1="${edge.y1}" x2="${targetX}" y2="${edge.y2}" stroke="#097fe8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+        <line x1="${edge.x1}" y1="${edge.y1}" x2="${targetX}" y2="${targetY}" stroke="#097fe8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
         ${labelElement}
       </g>`;
     })
@@ -279,6 +365,16 @@ export function renderFlowSlideToHtml(input: unknown): string {
       overflow: visible;
     }
 
+    .flow-viewport {
+      position: absolute;
+      left: ${layout.offsetX}px;
+      top: ${layout.offsetY}px;
+      width: ${layout.graphWidth}px;
+      height: ${layout.graphHeight}px;
+      transform: scale(${layout.scale});
+      transform-origin: 0 0;
+    }
+
     .flow-svg {
       position: absolute;
       inset: 0;
@@ -365,16 +461,18 @@ export function renderFlowSlideToHtml(input: unknown): string {
       </section>
 
       <div class="flow-stage">
-        <svg class="flow-svg" viewBox="0 0 ${layout.stageWidth} ${layout.stageHeight}">
-          <defs>
-            <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-              <polygon points="0 1, 7 4, 0 7" fill="#097fe8" />
-            </marker>
-          </defs>
-          ${edgeSvgElements}
-        </svg>
-        <div class="flow-nodes-layer">
-          ${nodeHtmlElements}
+        <div class="flow-viewport">
+          <svg class="flow-svg" viewBox="0 0 ${layout.graphWidth} ${layout.graphHeight}">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <polygon points="0 1, 7 4, 0 7" fill="#097fe8" />
+              </marker>
+            </defs>
+            ${edgeSvgElements}
+          </svg>
+          <div class="flow-nodes-layer">
+            ${nodeHtmlElements}
+          </div>
         </div>
       </div>
 
