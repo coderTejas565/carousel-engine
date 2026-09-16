@@ -38,8 +38,8 @@ export interface FlowLayoutResult {
  * Automatically fits and scales the graph bounding box inside fixed stage bounds.
  */
 export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
-  const nodeWidth = 220;
-  const nodeHeight = 110;
+  const nodeWidth = 260;
+  const nodeHeight = 130;
 
   const g = new dagre.graphlib.Graph();
   g.setGraph({
