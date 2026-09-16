@@ -90,8 +90,8 @@ export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
 
   // 2. Stage boundaries (fixed to canvas width 1080 - 2 * 80px padding)
   const stageWidth = 920;
-  const minStageHeight = 460;
-  const maxStageHeight = 620;
+  const minStageHeight = 520;
+  const maxStageHeight = 760;
   const stageHeight = Math.min(maxStageHeight, Math.max(minStageHeight, Math.round(graphHeight + 80)));
 
   // 3. Keep reasonable padding from stage edges
