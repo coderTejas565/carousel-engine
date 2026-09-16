@@ -19,6 +19,9 @@ export interface EdgeLayout {
   y1: number;
   x2: number;
   y2: number;
+  path?: string;
+  midX?: number;
+  midY?: number;
 }
 
 export interface FlowLayoutResult {
@@ -144,6 +147,8 @@ export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
     const x2 = toNode.x;
     const y2 = toNode.y + toNode.height / 2;
 
+    const route = computeEdgePath(x1, y1, x2, y2, 8);
+
     return {
       from: edge.from,
       to: edge.to,
@@ -152,6 +157,9 @@ export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
       y1,
       x2,
       y2,
+      path: route.path,
+      midX: route.midX,
+      midY: route.midY,
     };
   });
 
@@ -165,6 +173,52 @@ export function computeFlowLayout(slide: FlowSlide): FlowLayoutResult {
     scale,
     offsetX,
     offsetY,
+  };
+}
+
+/**
+ * Deterministically computes an SVG path and midpoint for an edge.
+ * Uses a straight horizontal line for linear connections, and a smooth
+ * cubic Bézier S-curve with horizontal tangents for branching/diagonal connections.
+ */
+export function computeEdgePath(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  targetOffset: number = 8
+): { path: string; midX: number; midY: number; targetX: number; targetY: number } {
+  const targetX = x2 - targetOffset;
+  const targetY = y2;
+  const dx = targetX - x1;
+  const dy = targetY - y1;
+
+  const midX = Math.round((x1 + targetX) / 2);
+  const midY = Math.round((y1 + targetY) / 2);
+
+  // Strictly horizontal: straight line
+  if (Math.abs(dy) < 1) {
+    return {
+      path: `M ${x1} ${y1} L ${targetX} ${targetY}`,
+      midX,
+      midY,
+      targetX,
+      targetY,
+    };
+  }
+
+  // Non-horizontal: cubic Bézier S-curve with horizontal tangents
+  const cp1x = Math.round(x1 + dx * 0.5);
+  const cp1y = y1;
+  const cp2x = Math.round(targetX - dx * 0.5);
+  const cp2y = targetY;
+
+  return {
+    path: `M ${x1} ${y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${targetX} ${targetY}`,
+    midX,
+    midY,
+    targetX,
+    targetY,
   };
 }
 
@@ -189,28 +243,24 @@ export function renderFlowSlideToHtml(input: unknown): string {
   // SVG edges
   const edgeSvgElements = layout.edges
     .map((edge) => {
-      // Offset slightly for marker arrowhead along the edge angle
-      const dx = edge.x2 - edge.x1;
-      const dy = edge.y2 - edge.y1;
-      const angle = Math.atan2(dy, dx);
-      const targetOffset = 8;
-      const targetX = edge.x2 - Math.cos(angle) * targetOffset;
-      const targetY = edge.y2 - Math.sin(angle) * targetOffset;
+      const route = edge.path
+        ? { path: edge.path, midX: edge.midX ?? Math.round((edge.x1 + edge.x2 - 8) / 2), midY: edge.midY ?? Math.round((edge.y1 + edge.y2) / 2) }
+        : computeEdgePath(edge.x1, edge.y1, edge.x2, edge.y2, 8);
 
-      const midX = (edge.x1 + targetX) / 2;
-      const midY = (edge.y1 + targetY) / 2;
+      const labelWidth = edge.label ? Math.max(90, Math.round(edge.label.length * 8.5 + 24)) : 0;
+      const labelHalfWidth = labelWidth / 2;
 
       const labelElement = edge.label
         ? `
-        <rect x="${midX - 55}" y="${midY - 26}" width="110" height="22" rx="4" fill="#0d0d13" stroke="#1c1c24" stroke-width="1" />
-        <text x="${midX}" y="${midY - 11}" text-anchor="middle" fill="#8e8e93" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="500">${escapeHtml(
+        <rect x="${route.midX - labelHalfWidth}" y="${route.midY - 24}" width="${labelWidth}" height="22" rx="4" fill="#0d0d13" stroke="#1c1c24" stroke-width="1" />
+        <text x="${route.midX}" y="${route.midY - 9}" text-anchor="middle" fill="#8e8e93" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="500">${escapeHtml(
             edge.label
           )}</text>`
         : "";
 
       return `
       <g class="flow-edge">
-        <line x1="${edge.x1}" y1="${edge.y1}" x2="${targetX}" y2="${targetY}" stroke="#097fe8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+        <path d="${route.path}" fill="none" stroke="#097fe8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
         ${labelElement}
       </g>`;
     })
